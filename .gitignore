@@ -1,0 +1,7 @@
+/dist
+*.js.map
+node_modules
+.npm
+combined.log
+error.log
+.DS_Store

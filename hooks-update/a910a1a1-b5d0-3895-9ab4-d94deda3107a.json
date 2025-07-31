@@ -1,0 +1,35 @@
+{
+  "name":  "publish",
+  "entryPoint":  "/publish.js",
+  "points":  {
+    "query":  {
+      "and":  [
+        {
+          "field":  {
+            "property":  "equipTypeId",
+            "text":  "691544c2-a1e9-400e-99be-5c266a93c4ab"
+          }
+        },
+        {
+          "or":  [
+            {
+              "field":  {
+                "property":  "equipRef",
+                "text":  "VMA-17"
+              }
+            },
+            {
+              "field":  {
+                "property":  "equipRef",
+                "text":  "VMA-18"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "labelAttribute":  "name",
+    "equipmentTypeId":  "691544c2-a1e9-400e-99be-5c266a93c4ab"
+  },
+  "mode":  "MODE_ON_REQUEST"
+}

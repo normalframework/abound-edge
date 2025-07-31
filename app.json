@@ -1,0 +1,33 @@
+{
+  "name":  "Abound Edge",
+  "options":  [
+    {
+      "name":  "mqtt_hostname",
+      "description":  "Hostname of MQTT Broker",
+      "optionType":  "TYPE_STRING",
+      "required":  true
+    },
+    {
+      "name":  "mqtt_username",
+      "description":  "Username for Auth",
+      "optionType":  "TYPE_STRING"
+    },
+    {
+      "name":  "mqtt_password",
+      "optionType":  "TYPE_STRING",
+      "secret":  true
+    },
+    {
+      "name":  "asset_group_id",
+      "description":  "Carrier-provided Asset Group ID",
+      "optionType":  "TYPE_STRING",
+      "required":  true
+    },
+    {
+      "name":  "edge_device_id",
+      "description":  "Carrier-provided device identifier for this node",
+      "optionType":  "TYPE_STRING",
+      "required":  true
+    }
+  ]
+}
