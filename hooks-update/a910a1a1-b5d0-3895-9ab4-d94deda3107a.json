@@ -28,6 +28,11 @@
         }
       ]
     },
+    "groups":  {
+      "keys":  [
+        "equipRef"
+      ]
+    },
     "labelAttribute":  "name",
     "equipmentTypeId":  "691544c2-a1e9-400e-99be-5c266a93c4ab"
   },
