@@ -1,0 +1,565 @@
+{
+  "ts": "2026-04-25T00:00:00.600Z",
+  "topic": "CORTIXedgeMeta/cortex/i/1234/v0.8_WOA",
+  "payload": {
+    "_ver": "0.8_WOA",
+    "_conID": "1234",
+    "_accID": "5678",
+    "_subID": "1234",
+    "_org": {
+      "_id": "",
+      "_name": "",
+      "_contact": "",
+      "_email": "",
+      "info": {}
+    },
+    "_locations": [
+      {
+        "_id": "pos.cup",
+        "_siteName": "Central Utility Plant",
+        "_address": "Port of Seattle, Sea-Tac Airport, WA",
+        "_latitude": "47.447",
+        "_longitude": "-122.3075",
+        "_tempUOM": "F",
+        "_timeZone": "America/Los_Angeles",
+        "info": {},
+        "_assetList": [
+          {
+            "_id": "Central Utility Plant Electric Meter",
+            "_type": "Site",
+            "info": {
+              "siteRef": "pos.cup",
+              "className": "elec-meter",
+              "pointCount": 1,
+              "equipRef": "Central Utility Plant Electric Meter"
+            }
+          },
+          {
+            "_id": "Central Utility Plant Water Meter",
+            "_type": "Site",
+            "info": {
+              "siteRef": "pos.cup",
+              "className": "flow-meter",
+              "pointCount": 1,
+              "equipRef": "Central Utility Plant Water Meter"
+            }
+          },
+          {
+            "_id": "Central Utility Plant Gas Meter",
+            "_type": "Site",
+            "info": {
+              "siteRef": "pos.cup",
+              "className": "meter",
+              "pointCount": 1,
+              "equipRef": "Central Utility Plant Gas Meter"
+            }
+          }
+        ]
+      },
+      {
+        "_id": "pos.main-term",
+        "_siteName": "Sea-Tac Main Terminal",
+        "_address": "Port of Seattle, Sea-Tac Airport, WA",
+        "_latitude": "47.4502",
+        "_longitude": "-122.3088",
+        "_tempUOM": "F",
+        "_timeZone": "America/Los_Angeles",
+        "info": {},
+        "_assetList": [
+          {
+            "_id": "Sea-Tac Main Terminal Electric Meter",
+            "_type": "Site",
+            "info": {
+              "siteRef": "pos.main-term",
+              "className": "elec-meter",
+              "pointCount": 4,
+              "equipRef": "Sea-Tac Main Terminal Electric Meter"
+            }
+          },
+          {
+            "_id": "Sea-Tac Main Terminal Gas Meter",
+            "_type": "Site",
+            "info": {
+              "siteRef": "pos.main-term",
+              "className": "meter",
+              "pointCount": 1,
+              "equipRef": "Sea-Tac Main Terminal Gas Meter"
+            }
+          }
+        ]
+      },
+      {
+        "_id": "riverstone",
+        "_siteName": "Riverstone Office Building",
+        "_address": "Spokane, WA",
+        "_latitude": "47.6587",
+        "_longitude": "-117.426",
+        "_tempUOM": "F",
+        "_timeZone": "America/Los_Angeles",
+        "info": {},
+        "_assetList": [
+          {
+            "_id": "VMA-11",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 10,
+              "equipRef": "Riverstone Office Building VAV Box 11 (VMA-11)",
+              "longName": "Riverstone Office Building VAV Box 11 (VMA-11)"
+            }
+          },
+          {
+            "_id": "VMA-4",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 12,
+              "equipRef": "Riverstone Office Building VAV Box 4 (VMA-4)",
+              "longName": "Riverstone Office Building VAV Box 4 (VMA-4)"
+            }
+          },
+          {
+            "_id": "VMA-7",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 15,
+              "equipRef": "Riverstone Office Building VAV Box 7 (VMA-7)",
+              "longName": "Riverstone Office Building VAV Box 7 (VMA-7)"
+            }
+          },
+          {
+            "_id": "VMA-9",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 13,
+              "equipRef": "Riverstone Office Building VAV Box 9 (VMA-9)",
+              "longName": "Riverstone Office Building VAV Box 9 (VMA-9)"
+            }
+          },
+          {
+            "_id": "VMA-33",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 11,
+              "equipRef": "Riverstone Office Building VAV Box 33 (VMA-33)",
+              "longName": "Riverstone Office Building VAV Box 33 (VMA-33)"
+            }
+          },
+          {
+            "_id": "VMA-36",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 11,
+              "equipRef": "Riverstone Office Building VAV Box 36 (VMA-36)",
+              "longName": "Riverstone Office Building VAV Box 36 (VMA-36)"
+            }
+          },
+          {
+            "_id": "VMA-4",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 13,
+              "equipRef": "Riverstone Office Building VAV Box 40 (VMA-40)",
+              "longName": "Riverstone Office Building VAV Box 40 (VMA-40)"
+            }
+          },
+          {
+            "_id": "Riverstone Office Building Primary AHU (UNT-14)",
+            "_type": "AHU",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "ahu",
+              "pointCount": 8,
+              "equipRef": "Riverstone Office Building Primary AHU (UNT-14)"
+            }
+          },
+          {
+            "_id": "VMA-3",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 14,
+              "equipRef": "Riverstone Office Building VAV Box 37 (VMA-37)",
+              "longName": "Riverstone Office Building VAV Box 37 (VMA-37)"
+            }
+          },
+          {
+            "_id": "VMA-6",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 11,
+              "equipRef": "Riverstone Office Building VAV Box 6 (VMA-6)",
+              "longName": "Riverstone Office Building VAV Box 6 (VMA-6)"
+            }
+          },
+          {
+            "_id": "VMA-35",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 13,
+              "equipRef": "Riverstone Office Building VAV Box 35 (VMA-35)",
+              "longName": "Riverstone Office Building VAV Box 35 (VMA-35)"
+            }
+          },
+          {
+            "_id": "VMA-29",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 12,
+              "equipRef": "Riverstone Office Building VAV Box 29 (VMA-29)",
+              "longName": "Riverstone Office Building VAV Box 29 (VMA-29)"
+            }
+          },
+          {
+            "_id": "VMA-16",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 10,
+              "equipRef": "Riverstone Office Building VAV Box 16 (VMA-16)",
+              "longName": "Riverstone Office Building VAV Box 16 (VMA-16)"
+            }
+          },
+          {
+            "_id": "VMA-19",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 14,
+              "equipRef": "Riverstone Office Building VAV Box 19 (VMA-19)",
+              "longName": "Riverstone Office Building VAV Box 19 (VMA-19)"
+            }
+          },
+          {
+            "_id": "VMA-8",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 8,
+              "equipRef": "Riverstone Office Building VAV Box 8 (VMA-8)",
+              "longName": "Riverstone Office Building VAV Box 8 (VMA-8)"
+            }
+          },
+          {
+            "_id": "VMA-5",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 13,
+              "equipRef": "Riverstone Office Building VAV Box 5 (VMA-5)",
+              "longName": "Riverstone Office Building VAV Box 5 (VMA-5)"
+            }
+          },
+          {
+            "_id": "VMA-25",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 11,
+              "equipRef": "Riverstone Office Building VAV Box 25 (VMA-25)",
+              "longName": "Riverstone Office Building VAV Box 25 (VMA-25)"
+            }
+          },
+          {
+            "_id": "VMA-21",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 9,
+              "equipRef": "Riverstone Office Building VAV Box 21 (VMA-21)",
+              "longName": "Riverstone Office Building VAV Box 21 (VMA-21)"
+            }
+          },
+          {
+            "_id": "VMA-32",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 10,
+              "equipRef": "Riverstone Office Building VAV Box 32 (VMA-32)",
+              "longName": "Riverstone Office Building VAV Box 32 (VMA-32)"
+            }
+          },
+          {
+            "_id": "VMA-3",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 8,
+              "equipRef": "Riverstone Office Building VAV Box 3 (VMA-3)",
+              "longName": "Riverstone Office Building VAV Box 3 (VMA-3)"
+            }
+          },
+          {
+            "_id": "VMA-14",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 18,
+              "equipRef": "Riverstone Office Building VAV Box 14 (VMA-14)",
+              "longName": "Riverstone Office Building VAV Box 14 (VMA-14)"
+            }
+          },
+          {
+            "_id": "VMA-10",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 10,
+              "equipRef": "Riverstone Office Building VAV Box 10 (VMA-10)",
+              "longName": "Riverstone Office Building VAV Box 10 (VMA-10)"
+            }
+          },
+          {
+            "_id": "VMA-28",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 9,
+              "equipRef": "Riverstone Office Building VAV Box 28 (VMA-28)",
+              "longName": "Riverstone Office Building VAV Box 28 (VMA-28)"
+            }
+          },
+          {
+            "_id": "VMA-13",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 10,
+              "equipRef": "Riverstone Office Building VAV Box 13 (VMA-13)",
+              "longName": "Riverstone Office Building VAV Box 13 (VMA-13)"
+            }
+          },
+          {
+            "_id": "VMA-15",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 14,
+              "equipRef": "Riverstone Office Building VAV Box 15 (VMA-15)",
+              "longName": "Riverstone Office Building VAV Box 15 (VMA-15)"
+            }
+          },
+          {
+            "_id": "VMA-34",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 10,
+              "equipRef": "Riverstone Office Building VAV Box 34 (VMA-34)",
+              "longName": "Riverstone Office Building VAV Box 34 (VMA-34)"
+            }
+          },
+          {
+            "_id": "VMA-17",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 17,
+              "equipRef": "Riverstone Office Building VAV Box 17 (VMA-17)",
+              "longName": "Riverstone Office Building VAV Box 17 (VMA-17)"
+            }
+          },
+          {
+            "_id": "VMA-27",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 10,
+              "equipRef": "Riverstone Office Building VAV Box 27 (VMA-27)",
+              "longName": "Riverstone Office Building VAV Box 27 (VMA-27)"
+            }
+          },
+          {
+            "_id": "VMA-1",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 10,
+              "equipRef": "Riverstone Office Building VAV Box 1 (VMA-1)",
+              "longName": "Riverstone Office Building VAV Box 1 (VMA-1)"
+            }
+          },
+          {
+            "_id": "VMA-22",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 7,
+              "equipRef": "Riverstone Office Building VAV Box 22 (VMA-22)",
+              "longName": "Riverstone Office Building VAV Box 22 (VMA-22)"
+            }
+          },
+          {
+            "_id": "VMA-18",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 14,
+              "equipRef": "Riverstone Office Building VAV Box 18 (VMA-18)",
+              "longName": "Riverstone Office Building VAV Box 18 (VMA-18)"
+            }
+          },
+          {
+            "_id": "VMA-31",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 9,
+              "equipRef": "Riverstone Office Building VAV Box 31 (VMA-31)",
+              "longName": "Riverstone Office Building VAV Box 31 (VMA-31)"
+            }
+          },
+          {
+            "_id": "VMA-2",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 14,
+              "equipRef": "Riverstone Office Building VAV Box 2 (VMA-2)",
+              "longName": "Riverstone Office Building VAV Box 2 (VMA-2)"
+            }
+          },
+          {
+            "_id": "VMA-3",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 10,
+              "equipRef": "Riverstone Office Building VAV Box 38 (VMA-38)",
+              "longName": "Riverstone Office Building VAV Box 38 (VMA-38)"
+            }
+          },
+          {
+            "_id": "VMA-3",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 9,
+              "equipRef": "Riverstone Office Building VAV Box 39 (VMA-39)",
+              "longName": "Riverstone Office Building VAV Box 39 (VMA-39)"
+            }
+          },
+          {
+            "_id": "VMA-30",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 12,
+              "equipRef": "Riverstone Office Building VAV Box 30 (VMA-30)",
+              "longName": "Riverstone Office Building VAV Box 30 (VMA-30)"
+            }
+          },
+          {
+            "_id": "VMA-26",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 8,
+              "equipRef": "Riverstone Office Building VAV Box 26 (VMA-26)",
+              "longName": "Riverstone Office Building VAV Box 26 (VMA-26)"
+            }
+          },
+          {
+            "_id": "VMA-23",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 13,
+              "equipRef": "Riverstone Office Building VAV Box 23 (VMA-23)",
+              "longName": "Riverstone Office Building VAV Box 23 (VMA-23)"
+            }
+          },
+          {
+            "_id": "VMA-12",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 11,
+              "equipRef": "Riverstone Office Building VAV Box 12 (VMA-12)",
+              "longName": "Riverstone Office Building VAV Box 12 (VMA-12)"
+            }
+          },
+          {
+            "_id": "VMA-20",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 15,
+              "equipRef": "Riverstone Office Building VAV Box 20 (VMA-20)",
+              "longName": "Riverstone Office Building VAV Box 20 (VMA-20)"
+            }
+          },
+          {
+            "_id": "Riverstone Office Building Exhaust AHU (UNT-15)",
+            "_type": "AHU",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "ahu",
+              "pointCount": 4,
+              "equipRef": "Riverstone Office Building Exhaust AHU (UNT-15)"
+            }
+          },
+          {
+            "_id": "VMA-24",
+            "_type": "VAV",
+            "info": {
+              "siteRef": "riverstone",
+              "className": "vav",
+              "pointCount": 8,
+              "equipRef": "Riverstone Office Building VAV Box 24 (VMA-24)",
+              "longName": "Riverstone Office Building VAV Box 24 (VMA-24)"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

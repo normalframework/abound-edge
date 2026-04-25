@@ -1,0 +1,506 @@
+{
+  "ts": "2026-04-25T14:00:00.508Z",
+  "topic": "CORTIXedgeData/cortex/i/1234/openmqtt",
+  "payload": {
+    "livedata": {
+      "_id": "1234",
+      "_unixtime": "1777125600508",
+      "devices": [
+        {
+          "_comm": "0",
+          "_id": "VMA-11",
+          "data": {
+            "discharge-air-flow-sp": "144",
+            "discharge-air-flow-sensor": "73.62899780273438",
+            "zone-air-temp-occ-heating-sp": "65",
+            "zone-air-temp-sensor": "73.78800201416016",
+            "discharge-air-temp-sensor": "73.85099792480469"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-4",
+          "data": {
+            "occupied-sensor": "2",
+            "discharge-air-flow-heating-sp": "120",
+            "discharge-air-flow-min-sp": "80",
+            "zone-air-temp-sensor": "72.0999984741211",
+            "discharge-air-temp-sensor": "71.75299835205078"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-7",
+          "data": {
+            "discharge-air-flow-sp": "144",
+            "zone-air-temp-sensor": "70.95800018310547",
+            "discharge-air-temp-sensor": "71.56700134277344",
+            "discharge-air-flow-max-sp": "500",
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-flow-min-sp": "80",
+            "damper-sensor": "9.939000129699707",
+            "zone-air-temp-effective-sp": "68",
+            "zone-air-temp-occ-cooling-sp": "80"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-9",
+          "data": {
+            "discharge-air-flow-sp": "144",
+            "zone-air-temp-sensor": "71.2239990234375",
+            "discharge-air-flow-min-sp": "80",
+            "zone-air-temp-occ-cooling-sp": "80",
+            "discharge-air-flow-max-sp": "500",
+            "discharge-air-temp-sensor": "71.5989990234375",
+            "damper-sensor": "12.480999946594238",
+            "zone-air-temp-occ-heating-sp": "65"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-33",
+          "data": {
+            "zone-air-temp-occ-cooling-sp": "80",
+            "discharge-air-flow-sensor": "81.14399719238281",
+            "discharge-air-flow-sp": "144",
+            "zone-air-temp-effective-sp": "68",
+            "zone-air-temp-occ-heating-sp": "65"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-36",
+          "data": {
+            "occupied-sensor": "2"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-4",
+          "data": {
+            "zone-air-temp-sensor": "71.56099700927734",
+            "discharge-air-flow-sensor": "72.54399871826172",
+            "occupied-sensor": "2",
+            "zone-air-temp-effective-sp": "68",
+            "discharge-air-flow-heating-sp": "120",
+            "discharge-air-temp-sensor": "71.79900360107422",
+            "damper-sensor": "11.883000373840332"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "Riverstone Office Building Primary AHU (UNT-14)",
+          "data": {
+            "supply-fan-run-sensor": "0",
+            "heating-cmd": "0",
+            "supply-fan-speed-cmd": "0",
+            "cooling-cmd": "0",
+            "discharge-air-temp-sensor": "70.25"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-3",
+          "data": {
+            "zone-air-temp-sensor": "73.09300231933594",
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-flow-sensor": "79.99400329589844",
+            "discharge-air-temp-sensor": "72.53199768066406",
+            "discharge-air-flow-max-sp": "500"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-6",
+          "data": {
+            "damper-sensor": "6.146999835968018",
+            "discharge-air-flow-min-sp": "80",
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-temp-sensor": "70.99500274658203",
+            "discharge-air-flow-max-sp": "500",
+            "discharge-air-flow-heating-sp": "120"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-35",
+          "data": {
+            "zone-air-temp-sensor": "72.04900360107422",
+            "zone-air-temp-occ-heating-sp": "65"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-29",
+          "data": {
+            "discharge-air-flow-max-sp": "500",
+            "zone-air-temp-sensor": "73.44100189208984",
+            "zone-air-temp-occ-heating-sp": "65",
+            "occupied-sensor": "2",
+            "zone-air-temp-occ-cooling-sp": "80"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-16",
+          "data": {
+            "discharge-air-flow-sp": "144",
+            "discharge-air-temp-sensor": "72.9280014038086",
+            "discharge-air-flow-heating-sp": "120",
+            "zone-air-temp-occ-cooling-sp": "80",
+            "zone-air-temp-occ-heating-sp": "65"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-19",
+          "data": {
+            "discharge-air-flow-sp": "144",
+            "damper-sensor": "8.37600040435791",
+            "zone-air-temp-occ-heating-sp": "65",
+            "occupied-sensor": "2",
+            "zone-air-temp-effective-sp": "68"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-8",
+          "data": {
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-temp-sensor": "71.08799743652344",
+            "discharge-air-flow-max-sp": "500",
+            "zone-air-temp-effective-sp": "68",
+            "zone-air-temp-occ-cooling-sp": "80"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-5",
+          "data": {
+            "discharge-air-flow-min-sp": "80",
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-flow-sensor": "69.4229965209961",
+            "discharge-air-flow-sp": "144",
+            "occupied-sensor": "2",
+            "zone-air-temp-sensor": "74.04199981689453"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-25",
+          "data": {
+            "zone-air-temp-occ-heating-sp": "65",
+            "zone-air-temp-sensor": "73.11599731445312",
+            "damper-sensor": "10.930000305175781",
+            "discharge-air-flow-max-sp": "500",
+            "discharge-air-flow-sp": "144",
+            "zone-air-temp-effective-sp": "68",
+            "discharge-air-flow-sensor": "81.19400024414062"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-21",
+          "data": {
+            "damper-sensor": "7.4720001220703125",
+            "discharge-air-flow-min-sp": "80",
+            "discharge-air-flow-heating-sp": "120",
+            "zone-air-temp-effective-sp": "68"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-32",
+          "data": {
+            "occupied-sensor": "2",
+            "zone-air-temp-occ-cooling-sp": "80",
+            "damper-sensor": "11.767000198364258",
+            "discharge-air-temp-sensor": "72.87899780273438",
+            "zone-air-temp-effective-sp": "68"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-3",
+          "data": {
+            "damper-sensor": "9.831999778747559",
+            "discharge-air-flow-min-sp": "80",
+            "discharge-air-flow-sp": "144"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-14",
+          "data": {
+            "zone-air-temp-sensor": "72.79199981689453",
+            "discharge-air-temp-sensor": "73.76699829101562",
+            "occupied-sensor": "2",
+            "discharge-air-flow-sensor": "81.66500091552734",
+            "discharge-air-flow-heating-sp": "120",
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-flow-min-sp": "80",
+            "zone-air-temp-occ-cooling-sp": "80",
+            "damper-sensor": "8.781000137329102"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-10",
+          "data": {
+            "discharge-air-flow-heating-sp": "120",
+            "discharge-air-flow-min-sp": "80",
+            "discharge-air-flow-max-sp": "500",
+            "zone-air-temp-occ-cooling-sp": "80"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-28",
+          "data": {
+            "discharge-air-flow-sensor": "112.78399658203125",
+            "discharge-air-flow-min-sp": "80",
+            "discharge-air-temp-sensor": "72.26200103759766",
+            "damper-sensor": "15.260000228881836"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-13",
+          "data": {
+            "discharge-air-flow-heating-sp": "120",
+            "discharge-air-temp-sensor": "70.78900146484375",
+            "discharge-air-flow-sp": "144",
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-flow-max-sp": "500"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-15",
+          "data": {
+            "discharge-air-flow-heating-sp": "120",
+            "damper-sensor": "10.553000450134277",
+            "discharge-air-temp-sensor": "71.9749984741211",
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-flow-min-sp": "80",
+            "discharge-air-flow-max-sp": "500",
+            "discharge-air-flow-sensor": "87.69100189208984"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-34",
+          "data": {
+            "discharge-air-flow-sp": "144",
+            "discharge-air-flow-max-sp": "500",
+            "occupied-sensor": "2",
+            "damper-sensor": "11.373000144958496"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-17",
+          "data": {
+            "discharge-air-flow-max-sp": "500",
+            "discharge-air-flow-sp": "144",
+            "discharge-air-temp-sensor": "73.49700164794922",
+            "zone-air-temp-occ-cooling-sp": "80"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-27",
+          "data": {
+            "discharge-air-temp-sensor": "71.26599884033203",
+            "zone-air-temp-sensor": "71.55899810791016",
+            "discharge-air-flow-min-sp": "80",
+            "damper-sensor": "10.765000343322754",
+            "zone-air-temp-effective-sp": "68"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-1",
+          "data": {
+            "zone-air-temp-sensor": "73.17500305175781",
+            "damper-sensor": "8.184000015258789",
+            "discharge-air-flow-sensor": "82.05500030517578",
+            "occupied-sensor": "2"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-22",
+          "data": {
+            "discharge-air-flow-heating-sp": "120",
+            "occupied-sensor": "2"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-18",
+          "data": {
+            "discharge-air-temp-sensor": "71.1449966430664",
+            "zone-air-temp-effective-sp": "68",
+            "zone-air-temp-sensor": "71.85800170898438",
+            "zone-air-temp-occ-cooling-sp": "80",
+            "damper-sensor": "10.130000114440918"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-31",
+          "data": {
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-temp-sensor": "72.59100341796875",
+            "zone-air-temp-occ-cooling-sp": "80"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-2",
+          "data": {
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-temp-sensor": "71.51100158691406",
+            "zone-air-temp-occ-cooling-sp": "80",
+            "zone-air-temp-effective-sp": "68",
+            "occupied-sensor": "2",
+            "discharge-air-flow-heating-sp": "120",
+            "damper-sensor": "11.12399959564209"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-3",
+          "data": {
+            "discharge-air-flow-min-sp": "80",
+            "discharge-air-flow-sp": "144",
+            "zone-air-temp-sensor": "73.46299743652344",
+            "discharge-air-flow-heating-sp": "120"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-3",
+          "data": {
+            "discharge-air-temp-sensor": "73.59300231933594",
+            "zone-air-temp-occ-cooling-sp": "80",
+            "damper-sensor": "10.5"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-30",
+          "data": {
+            "zone-air-temp-sensor": "71.74800109863281",
+            "discharge-air-flow-sp": "144",
+            "discharge-air-flow-sensor": "69.36699676513672",
+            "discharge-air-flow-max-sp": "500",
+            "zone-air-temp-occ-cooling-sp": "80"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-26",
+          "data": {
+            "discharge-air-flow-max-sp": "500",
+            "occupied-sensor": "2",
+            "discharge-air-flow-sensor": "87.83399963378906"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-23",
+          "data": {
+            "zone-air-temp-occ-cooling-sp": "80",
+            "occupied-sensor": "2",
+            "zone-air-temp-effective-sp": "68",
+            "zone-air-temp-occ-heating-sp": "65",
+            "zone-air-temp-sensor": "72.43199920654297",
+            "discharge-air-flow-sensor": "70.87100219726562"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "Sea-Tac Main Terminal Electric Meter",
+          "data": {
+            "elec-current-sensor": "3033.949951171875",
+            "elec-volt-sensor": "477.0199890136719",
+            "elec-energy-sensor": "3967078",
+            "elec-pf-sensor": "0.949999988079071"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-12",
+          "data": {
+            "discharge-air-flow-heating-sp": "120",
+            "discharge-air-flow-min-sp": "80",
+            "discharge-air-flow-max-sp": "500",
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-temp-sensor": "72.04299926757812",
+            "discharge-air-flow-sensor": "67.71900177001953"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-20",
+          "data": {
+            "zone-air-temp-occ-heating-sp": "65",
+            "discharge-air-flow-heating-sp": "120",
+            "discharge-air-temp-sensor": "72.08899688720703",
+            "discharge-air-flow-min-sp": "80",
+            "discharge-air-flow-sp": "144"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "Riverstone Office Building Exhaust AHU (UNT-15)",
+          "data": {
+            "exhaust-fan-run-sensor": "0",
+            "cooling-cmd": "0",
+            "exhaust-fan-speed-cmd": "0",
+            "return-air-temp-sensor": "73.11100006103516"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "Sea-Tac Main Terminal Gas Meter",
+          "data": {
+            "gas-energy-sensor": "83797.8984375"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "VMA-24",
+          "data": {
+            "discharge-air-flow-min-sp": "80",
+            "discharge-air-flow-sensor": "92.81099700927734"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "Central Utility Plant Electric Meter",
+          "data": {
+            "elec-pf-sensor": "0.949999988079071"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "Central Utility Plant Water Meter",
+          "data": {
+            "water-volume-sensor": "276811.6875"
+          }
+        },
+        {
+          "_comm": "0",
+          "_id": "Central Utility Plant Gas Meter",
+          "data": {
+            "gas-energy-sensor": "211375.40625"
+          }
+        }
+      ]
+    }
+  }
+}

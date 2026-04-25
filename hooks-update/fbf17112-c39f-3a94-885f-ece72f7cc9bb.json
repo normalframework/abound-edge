@@ -1,0 +1,11 @@
+{
+  "name":  "publish-data",
+  "entryPoint":  "/publish-data.js",
+  "points":  {
+    "noPoints":  true
+  },
+  "schedule":  {
+    "rrule":  "DTSTART:20260101T000000Z\nRRULE:FREQ=MINUTELY;INTERVAL=15"
+  },
+  "mode":  "MODE_SCHEDULED"
+}

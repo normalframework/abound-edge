@@ -1,0 +1,8 @@
+{
+  "name":  "test-publish",
+  "entryPoint":  "/test-publish.js",
+  "points":  {
+    "noPoints":  true
+  },
+  "mode":  "MODE_ON_REQUEST"
+}

@@ -1,0 +1,8 @@
+{
+  "name":  "save-mapping",
+  "entryPoint":  "/save-mapping.js",
+  "points":  {
+    "noPoints":  true
+  },
+  "mode":  "MODE_ON_REQUEST"
+}

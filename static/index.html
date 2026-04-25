@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abound Edge</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-light-purple": "#605AEA",
+              "primary-dark-purple": "#20144C",
+              "accent-secondary": "#ABDFE7",
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=1777049520" />
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <div id="app" class="max-w-5xl mx-auto p-6">
+      <header class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-semibold text-primary-dark-purple">Abound Edge</h1>
+          <p class="text-sm text-gray-600">Publish NF data and metadata to Carrier Abound. <span class="text-gray-400">build 1777049520</span></p>
+        </div>
+        <div class="flex gap-2">
+          <button id="btnTest" class="btn-secondary">Test connection</button>
+          <button id="btnPublishNow" class="btn-secondary">Publish data now</button>
+          <button id="btnPublishMetaNow" class="btn-secondary">Publish metadata now</button>
+          <button id="btnSave" class="btn-primary">Save settings</button>
+        </div>
+      </header>
+
+      <nav class="flex gap-1 border-b mb-4" id="tabs">
+        <button class="tab active" data-tab="status">Status</button>
+        <button class="tab" data-tab="setup">Setup</button>
+        <button class="tab" data-tab="sites">Sites</button>
+        <button class="tab" data-tab="mapping">Mapping</button>
+        <button class="tab" data-tab="preview">Preview</button>
+        <button class="tab" data-tab="logs">Logs</button>
+      </nav>
+
+      <div id="toast" class="hidden fixed top-6 right-6 max-w-md rounded-md px-4 py-3 shadow-lg"></div>
+
+      <main>
+        <section id="panel-status" class="panel">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="card">
+              <h2>Configuration</h2>
+              <div id="statusConfig" class="mt-2 text-sm space-y-1"></div>
+            </div>
+            <div class="card">
+              <h2>Discovery</h2>
+              <div id="statusDiscovery" class="mt-2 text-sm space-y-1"></div>
+            </div>
+            <div class="card col-span-2">
+              <h2>Recent runs</h2>
+              <table class="w-full text-sm mt-2">
+                <thead><tr class="text-left border-b"><th>Hook</th><th>State</th><th>Started</th></tr></thead>
+                <tbody id="recentRuns"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="panel-setup" class="panel hidden">
+          <div class="card">
+            <h2>Broker</h2>
+            <div class="form-grid">
+              <label>Host <input id="broker-host" type="text" placeholder="datan.cortixedge.io" /></label>
+              <label>Port <input id="broker-port" type="number" /></label>
+              <label class="checkbox">
+                <input id="broker-tls" type="checkbox" /> Enable TLS
+              </label>
+              <label class="checkbox">
+                <input id="broker-insecure" type="checkbox" /> Skip TLS verification (test only)
+              </label>
+              <label>Username <input id="broker-username" type="text" /></label>
+              <label>Password <input id="broker-password" type="password" /></label>
+              <label class="col-span-2">CA certificate (PEM, optional)
+                <textarea id="broker-capem" rows="4" class="font-mono text-xs" placeholder="-----BEGIN CERTIFICATE-----&#10;..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Identity</h2>
+            <div class="form-grid">
+              <label>Asset Group ID <input id="id-ag" type="text" placeholder="ABC" /></label>
+              <label>Edge Device ID (<code>_conID</code>) <input id="id-edge" type="text" placeholder="AI-CONNECT-CAG01" /></label>
+              <label>Account ID (<code>_accID</code>) <input id="id-acc" type="text" placeholder="AI-PI-NA-TC-9009" /></label>
+              <label>Sub ID (<code>_subID</code>) <input id="id-sub" type="text" placeholder="820XXX" /></label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Organization</h2>
+            <div class="form-grid">
+              <label>Org ID <input id="org-id" type="text" /></label>
+              <label>Name <input id="org-name" type="text" /></label>
+              <label>Contact <input id="org-contact" type="text" /></label>
+              <label>Email <input id="org-email" type="email" /></label>
+              <label class="col-span-2">Info (JSON, optional)
+                <textarea id="org-info" rows="3" class="font-mono text-xs" placeholder='{"address": "...", "zipCode": "..."}'></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Mode &amp; Schedule</h2>
+            <div class="form-grid">
+              <label>Mode
+                <select id="mode">
+                  <option value="modeled">Modeled (equipment)</option>
+                  <option value="raw">Raw (BACnet devices)</option>
+                </select>
+              </label>
+              <label>Publish interval (min) <input id="sched-pub" type="number" min="1" /></label>
+              <label>Metadata interval (hr) <input id="sched-meta" type="number" min="1" /></label>
+              <label>Stale threshold (min) <input id="sched-stale" type="number" min="1" /></label>
+            </div>
+          </div>
+        </section>
+
+        <section id="panel-sites" class="panel hidden">
+          <div class="card">
+            <div class="flex items-center justify-between">
+              <h2>Sites to publish</h2>
+              <div class="text-sm">
+                <button class="link" id="sitesAll">Enable all</button> ·
+                <button class="link" id="sitesNone">Disable all</button>
+              </div>
+            </div>
+            <table class="w-full text-sm mt-3">
+              <thead><tr class="text-left border-b">
+                <th>Enabled</th><th>ID</th><th>Name</th><th>Timezone</th><th>Coords</th>
+              </tr></thead>
+              <tbody id="sitesTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="panel-mapping" class="panel hidden">
+          <div class="card">
+            <h2>NF class → Carrier asset type</h2>
+            <p class="text-sm text-gray-600 mt-1">Defaults (gray) come from <code>config/default-mapping.json</code>. Overrides are saved to <code>config/mapping.json</code>.</p>
+            <table class="w-full text-sm mt-3">
+              <thead><tr class="text-left border-b"><th>NF class</th><th>Carrier type</th><th></th></tr></thead>
+              <tbody id="mappingTable"></tbody>
+            </table>
+            <div class="mt-3 flex gap-2 items-end">
+              <input id="newMapKey" placeholder="NF class (e.g. rtu)" />
+              <input id="newMapVal" placeholder="Carrier type (e.g. RTU)" />
+              <button id="btnAddMap" class="btn-secondary">Add override</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>BACnet vendor-model → Carrier asset type</h2>
+            <p class="text-sm text-gray-600 mt-1">Used in Raw mode. Vendor-model strings come from point attributes.</p>
+            <table class="w-full text-sm mt-3">
+              <thead><tr class="text-left border-b"><th>Vendor/model</th><th>Carrier type</th><th></th></tr></thead>
+              <tbody id="bacnetMappingTable"></tbody>
+            </table>
+            <div class="mt-3 flex gap-2 items-end">
+              <input id="newBacKey" placeholder='Vendor &amp; model, e.g. "Johnson Controls NAE"' />
+              <input id="newBacVal" placeholder="Carrier type" />
+              <button id="btnAddBac" class="btn-secondary">Add override</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="panel-preview" class="panel hidden">
+          <div class="card">
+            <div class="flex items-center justify-between">
+              <h2>Rendered payloads</h2>
+              <button id="btnRefreshPreview" class="btn-secondary">Refresh</button>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">
+              These are the latest results from the <code>publish-now</code> and <code>publish-metadata-now</code> hooks.
+              Click <em>Publish&hellip;now</em> at the top-right to regenerate.
+            </p>
+            <h3 class="mt-4 font-semibold">Data topic</h3>
+            <pre id="previewDataTopic" class="mono-block"></pre>
+            <pre id="previewData" class="mono-block max-h-96 overflow-auto"></pre>
+            <h3 class="mt-4 font-semibold">Metadata topic</h3>
+            <pre id="previewMetaTopic" class="mono-block"></pre>
+            <pre id="previewMeta" class="mono-block max-h-96 overflow-auto"></pre>
+          </div>
+        </section>
+
+        <section id="panel-logs" class="panel hidden">
+          <div class="card">
+            <div class="flex items-center justify-between">
+              <h2>Recent runs &amp; events</h2>
+              <button id="btnRefreshLogs" class="btn-secondary">Refresh</button>
+            </div>
+            <div id="logsContent" class="mt-3 text-sm font-mono space-y-4"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./utils.js?v=1777049520"></script>
+    <script type="module" src="./app.js?v=1777049520"></script>
+  </body>
+</html>

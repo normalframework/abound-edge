@@ -1,0 +1,21 @@
+{
+  "description": "Default NF equipment type / BACnet device vendor-model → Carrier Abound asset type. User overrides layer on top via config/mapping.json.",
+  "nfTypeToCarrier": {
+    "ahu": "AHU",
+    "vav": "VAV",
+    "rtu": "RTU",
+    "fcu": "FCU",
+    "chiller": "Chiller",
+    "boiler": "BLR",
+    "hot-water-boiler": "BLR",
+    "steam-boiler": "BLR",
+    "vrf-indoorUnit": "IDU",
+    "vrf-indoorUnit-fcu": "IDU",
+    "elec-meter": "Site",
+    "ac-elec-meter": "Site",
+    "dc-elec-meter": "Site",
+    "flow-meter": "Site",
+    "meter": "Site"
+  },
+  "bacnetVendorToCarrier": {}
+}
