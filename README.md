@@ -1,99 +1,128 @@
-# Abound Edge
+# Abound DMS
 
-Publish NF point data and metadata to a Carrier Abound Edge MQTT broker.
+Publish NF equipment point data to the Carrier Abound **Data Ingestion Service
+(DIS v2.0) REST API** — one OAuth2-authenticated POST per site to
+`/v1/dms/data`, built from streamed point values.
 
-The plugin is configured entirely through its dashboard (the app's `static/`
-page) — there are no `app.json` options. Settings persist to
-`config/settings.json`; user type-mapping overrides persist to
+Configured entirely through its dashboard (the app's `static/` page). Settings
+persist to `config/settings.json`; equipment-class → Carrier-type overrides to
 `config/mapping.json`.
 
 ## What it sends
 
-Two MQTT topics, per the Carrier Abound Edge MQTT Interface spec
-(see `docs/`):
+For each **enabled site**, one HTTPS `POST <baseUrl>/v1/dms/data` with the DMS
+device-model body:
 
-| Purpose  | Topic                                                                         | Cadence            |
-|----------|-------------------------------------------------------------------------------|--------------------|
-| Live data | `CORTIXedgeData/<assetGroupId>/i/<edgeDeviceId>/openmqtt`                     | every 15 min       |
-| Metadata  | `CORTIXedgeMeta/<assetGroupId>/i/<edgeDeviceId>/v0.8_WOA`                     | daily, hash-skipped |
-| Probe     | `CORTIXedgeData/<assetGroupId>/i/<edgeDeviceId>/openmqtt.probe`               | manual (test)      |
+```jsonc
+{
+  "systemId": "<systemId>",
+  "data": [
+    {
+      "<point-class>": "<stringValue>", ...,   // one entry per classified point
+      "_ts":   "<ms epoch>",   // re-stamped to the 15-min grid (see Timestamps)
+      "_id":   "<siteId>.id/<equipShortCode>.id",
+      "_path": "<siteName>/<equipRef>",
+      "_comm": "0.0",          // 0.0 = communicating, 1.0 = stale (INVERTED vs MQTT)
+      "_model": "VAV"          // mapped from the equipment class; omitted if unknown
+    }
+  ]
+}
+```
 
-Metadata publishes are skipped when the rendered payload's SHA-256 matches
-the previously sent one (stored in `config/.metadata-hash`). Run
-`publish-metadata-now` to force a send.
+Equipment are grouped by `equipRef`. `_model` comes from the **equipment class**
+(`vav`/`ahu`/…) mapped via `nfTypeToCarrier` — not the point class. Enumerated
+points are remapped/relabeled by NF Conversions (see Enums).
 
-## Modes
+## Architecture (streaming, one invocation per site)
 
-Set via `mode` in settings. Both modes resolve enabled sites from
-`settings.sites[siteId].enabled`.
+`publish-data` is a **scheduled (15 min) + `siteRef`-grouped + points-bound**
+hook. The framework streams each enabled site's points (with `latestValue`,
+already conversion-applied on read) into a per-site invocation — there are **no
+point/equipment API queries** in the publish path. The stream contains both
+data points and the equipment-instance records (`markers` ~ `equip`), the latter
+used only to resolve `_model`.
 
-- **modeled** (default) — group points by `equipRef`, look up the equipment
-  record on the model layer, and prefer a short-form record (e.g. `VMA-7`)
-  over a long-form one when its name is a substring of the long
-  `equipRef`. Point keys in the payload are the `class` attribute.
-  Equipment `class` is mapped to a Carrier asset type via
-  `nfTypeToCarrier` (see `config/default-mapping.json`).
-- **raw** — group points by `device_id` (BACnet). Point keys in the payload
-  are the raw object name. Asset type comes from `bacnetVendorToCarrier`
-  keyed by `"<vendor> <model>"`.
+`configure-publish` rebinds `publish-data`'s point query to the enabled sites
+(via `UpdateHook`, no restart needed) and clears the token cache; the dashboard
+calls it on **Save**.
 
-Unmapped types fall back to `"Unknown"`.
+## Timestamps
+
+Abound treats incoming data as change-of-value, so each run **re-stamps every
+point's equipment `_ts` to the current 15-min grid** (`:00/:15/:30/:45` UTC),
+shared across the site — so unchanged values still ingest as fresh samples.
+`_comm` is the real freshness: `0.0` if any point updated within
+`schedule.staleThresholdMin`, else `1.0`.
+
+## Enums (NF Conversions)
+
+Enum value-remapping and relabeling are done with **NF Conversions** (which
+apply on the read path, so published values pick them up automatically):
+
+1. **Generate / Download** a two-tab `.xlsx` of the **distinct `Point.enum`
+   lists** (Mappings tab) plus which points use each list (Points tab).
+2. Fill `target_value` (the integer Abound should receive) and/or
+   `target_label` (the label shown in NF) on the Mappings tab.
+3. **Upload** — for each *edited* list, create/update one `Conversion`
+   (`enum_mapping` value remap + `output_enum` relabel) and apply it to every
+   point sharing that list. The uploaded workbook is the full desired state;
+   lists left untouched get no conversion, and clearing a list removes it.
+
+`config/enum-conversions.json` tracks list → conversion-id.
+
+## Token handling
+
+OAuth2 client-credentials, cached to `config/.dms-token.json`:
+- reused until ~60s before expiry, then refreshed;
+- `401` on POST → force-refresh + one retry;
+- atomic cache writes + a cross-process single-flight lock (so per-site
+  invocations don't stampede the IdP or corrupt the cache);
+- cache cleared by `configure-publish` on Save, so credential changes apply
+  immediately.
+
+## Hooks
+
+```
+publish-data.js       scheduled (15min), grouped by siteRef: build + POST per site
+configure-publish.js  manual: rebind publish-data to enabled sites + clear token
+test-publish.js       manual: acquire token + GET /v1/dms/data probe
+export-enum-map.js    manual: distinct Point.enum lists → enum-export.json + enum-map.csv
+import-enum-map.js    manual: workbook → create/apply NF Conversions
+save-settings.js      manual: write config/settings.json (dashboard usually writes directly)
+```
 
 ## Layout
 
 ```
-publish-data.js          scheduled (15min): build + send livedata
-publish-metadata.js      scheduled (daily): build + hash-diff + send metadata
-publish-now.js           manual: alias for publish-data
-publish-metadata-now.js  manual: forces metadata publish (skips hash check)
-test-publish.js          manual: sends a probe message to the data topic
-save-settings.js         manual: dashboard → config/settings.json
-save-mapping.js          manual: dashboard → config/mapping.json
-
 lib/
-  settings.js     load/save settings.json with DEFAULTS merge
-  mapping.js      load default + user mapping; resolve NF/BACnet → Carrier type
-  broker.js       MQTT connect (mqtts/mqtt) with single cached client
-  topics.js       data/metadata topic builders
-  payload-data.js     build openmqtt livedata payload (with _comm freshness flag)
-  payload-metadata.js build CORTIXedgeMeta payload
-  mode-modeled.js collect locationsAssets + devices from NF model layer
-  mode-raw.js     collect locationsAssets + devices from raw BACnet points
-  nf.js           thin wrappers around sdk point/equipment queries
-  sites.js        enrich locations with site-level attrs (address, geo, tz)
+  settings.js     load/save settings.json (dms, schedule, sites)
+  dms-client.js   OAuth2 token (cache/refresh/single-flight) + postData + ping
+  payload-dms.js  build the per-site device-model body (grid _ts, _comm, _model)
+  ids.js          deterministic _id / _path from siteRef + equipRef
+  mapping.js      equipment class → Carrier asset type (for _model)
+  enums.js        Point.enum distinct lists, workbook/CSV, conversion specs
+  conversions.js  NF conversion REST helpers (enum_mapping + output_enum)
+  nf.js           sdk.http REST helpers (queryAllPoints, listSites, ...)
 
 config/
-  default-mapping.json  shipped defaults for nfTypeToCarrier
+  default-mapping.json  shipped nfTypeToCarrier defaults
   mapping.json          user overrides (written by dashboard)
-  settings.json         broker, identity, org, mode, schedule, sites
-  .metadata-hash        last published metadata hash (skip-if-match)
-  .last-data-payload.json
-  .last-metadata-payload.json   most recent rendered payloads (dashboard preview)
+  settings.json         dms connection, schedule, sites
+  (runtime, gitignored) .dms-token.json, .last-data-<site>.json,
+                        enum-map.csv, enum-export.json, enum-conversions.json
 
 static/                 dashboard SPA (index.html, app.js, utils.js, styles.css)
-docs/                   Carrier-supplied MQTT interface PDFs
+docs/                   Carrier DIS interface PDF
 ```
 
 ## Required configuration
 
-The plugin will no-op until all of the following are set
-(`settingsLib.isConfigured`):
+The plugin no-ops until all of the following are set (`settingsLib.isConfigured`):
 
-- `broker.host`
-- `identity.assetGroupId`
-- `identity.edgeDeviceId`
+- `dms.baseUrl`   — e.g. `https://ingest.ws.insights.cortix.ai`
+- `dms.tokenUrl`  — OAuth2 token endpoint
+- `dms.clientId`, `dms.clientSecret`
+- `dms.systemId`  — the source-system id, sent in every POST
 
-Broker defaults: TLS on, port 5083. Set `broker.insecure: true` to skip cert
-verification, or pass a CA in `broker.caPem`.
-
-## Freshness
-
-Each device in the livedata payload carries `_comm`: `"0"` if any of its
-points has a timestamp newer than `schedule.staleThresholdMin` minutes ago,
-`"1"` otherwise.
-
-## Local development
-
-The Port of Seattle demo site (Demo tenant on normal-online.net) targets a
-local docker-compose EMQX as a stand-in for the Abound broker — see
-`demo/docker-compose.yml` and `demo/emqx/emqx.conf` in the gobac repo.
+Set `dms.verifyTls: false` to skip TLS verification (test only). Enable the
+sites to publish on the **Sites** tab; Save rebinds the publisher.
