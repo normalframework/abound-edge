@@ -1,5 +1,5 @@
 {
   "name": "Abound DMS",
   "description": "Publish NF equipment point data to the Carrier Abound Data Ingestion Service (DMS) REST API. Configure via the dashboard.",
-  "minNfVersion": "3.10.5-4"
+  "minNfVersion": "3.10.4-0"
 }
