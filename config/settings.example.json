@@ -1,8 +1,8 @@
 {
   "version": 2,
   "dms": {
-    "baseUrl": "https://ingest.ws.insights.cortix.ai",
-    "tokenUrl": "https://login.example.com/oauth2/v2.0/token",
+    "baseUrl": "",
+    "tokenUrl": "",
     "clientId": "",
     "clientSecret": "",
     "scope": "",

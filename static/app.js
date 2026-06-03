@@ -21,6 +21,7 @@ const state = {
   hooks: [],
   activeTab: "status",
   settingsLoaded: false,
+  settingsMissing: false,
   mappingLoaded: false,
 };
 
@@ -30,27 +31,30 @@ function safeName(s) { return String(s).replace(/[^a-z0-9._-]/gi, "_"); }
 
 async function load() {
   const [settingsRaw, defaultMapRaw, userMapRaw, enumRaw, sites, hooks] = await Promise.all([
-    U.readFile("/config/settings.json").catch((e) => { console.error("readFile settings", e); return undefined; }),
+    U.readFile("/config/settings.json").catch((e) => { console.warn("readFile settings", e.message); return undefined; }),
     U.readFile("/config/default-mapping.json").catch(() => null),
-    U.readFile("/config/mapping.json").catch((e) => { console.error("readFile mapping", e); return undefined; }),
+    U.readFile("/config/mapping.json").catch((e) => { console.warn("readFile mapping", e.message); return undefined; }),
     U.readFile("/config/enum-conversions.json").catch(() => null),
     U.listSites().catch(() => []),
     U.listHooks().catch(() => []),
   ]);
 
+  // A fresh clone has no config/settings.json; the file API returns 500/404 for a
+  // missing file, so readFile throws → undefined here. Treat any missing/unreadable
+  // settings file as a NEW INSTALL: use defaults and keep Save enabled (the
+  // required-field guard in saveAll still prevents saving an empty connection).
   if (typeof settingsRaw === "string") {
     try { state.settings = mergeSettings(JSON.parse(settingsRaw)); state.settingsLoaded = true; }
-    catch (e) { console.error("[abound] settings parse error:", e, "raw:", settingsRaw); }
-  } else if (settingsRaw === null) {
-    state.settingsLoaded = true;
+    catch (e) { console.error("[abound] settings parse error:", e); state.settingsLoaded = true; state.settingsMissing = true; }
   } else {
-    console.error("[abound] settings read failed — Save disabled");
+    state.settingsLoaded = true;
+    state.settingsMissing = true;
   }
 
   if (typeof userMapRaw === "string") {
     try { state.userMapping = JSON.parse(userMapRaw); state.mappingLoaded = true; } catch (_) {}
-  } else if (userMapRaw === null) {
-    state.mappingLoaded = true;
+  } else {
+    state.mappingLoaded = true; // missing mapping.json is fine (defaults only)
   }
   if (defaultMapRaw) { try { state.defaultMapping = JSON.parse(defaultMapRaw); } catch (_) {} }
   if (enumRaw) { try { state.enumConv = JSON.parse(enumRaw); } catch (_) {} }
@@ -88,10 +92,7 @@ function renderStatus() {
   const s = state.settings;
   const cfg = byId("statusConfig");
   const configured = dmsConfigured(s);
-  const loadPill = state.settingsLoaded ? ""
-    : '<div><span class="pill pill-err">settings failed to load — Save is disabled</span></div>';
   cfg.innerHTML = `
-    ${loadPill}
     <div>${configured ? '<span class="pill pill-ok">Configured</span>' : '<span class="pill pill-warn">Not configured</span>'}</div>
     <div><b>Endpoint:</b> ${escapeHtml(s.dms.baseUrl || "?")}<span class="text-gray-400">/v1/dms/data</span></div>
     <div><b>System ID:</b> ${escapeHtml(s.dms.systemId || "?")}</div>
@@ -382,10 +383,6 @@ function setTab(name) {
 }
 
 async function saveAll() {
-  if (!state.settingsLoaded) {
-    U.showToast("error", "Cannot save — settings file could not be loaded. Reload the page.");
-    return;
-  }
   readSetup();
   const d = state.settings.dms;
   const missing = [];
@@ -407,11 +404,12 @@ async function saveAll() {
   try {
     await U.writeFile("/config/settings.json", JSON.stringify(state.settings, null, 2));
   } catch (e) { U.showToast("error", `Save settings failed: ${e.message}`); return; }
-  if (state.mappingLoaded || Object.keys(state.userMapping.nfTypeToCarrier || {}).length) {
+  if (state.mappingLoaded && Object.keys(state.userMapping.nfTypeToCarrier || {}).length) {
     try { await U.writeFile("/config/mapping.json", JSON.stringify(state.userMapping, null, 2)); }
     catch (e) { U.showToast("error", `Save mapping failed: ${e.message}`); return; }
   }
 
+  state.settingsMissing = false;
   // Re-bind the publish hook to the enabled sites (UpdateHook re-binds live, no restart).
   await runHook("configure-publish");
   U.showToast("success", "Settings saved & publish hook reconfigured.");
@@ -473,8 +471,10 @@ function wire() {
   wire();
   try {
     await load();
-    renderSetup();   // populate the (possibly hidden) Setup form so Save reads real values from any tab
+    renderSetup();   // populate the (possibly hidden) Setup form so Save works from any tab
     setTab("status");
-    if (!state.settingsLoaded) U.showToast("error", "Settings failed to load — Save is disabled. Reload the page.", 8000);
+    if (state.settingsMissing) {
+      U.showToast("info", "No settings found yet — open the Setup tab, enter the DMS connection, and Save.", 7000);
+    }
   } catch (e) { U.showToast("error", `Initial load failed: ${e.message}`); console.error(e); }
 })();
