@@ -1,4 +1,7 @@
 {
-  "nfTypeToCarrier": {},
+  "nfTypeToCarrier": {
+    "ac-elec-meter": "ElectricMeter",
+    "meter": "Meter"
+  },
   "bacnetVendorToCarrier": {}
 }

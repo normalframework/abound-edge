@@ -1,5 +1,5 @@
 {
-  "description": "Default NF equipment type / BACnet device vendor-model → Carrier Abound asset type. User overrides layer on top via config/mapping.json.",
+  "description": "Default NF equipment class → Carrier Abound asset type (used for the _model field). User overrides layer on top via config/mapping.json.",
   "nfTypeToCarrier": {
     "ahu": "AHU",
     "vav": "VAV",
@@ -16,6 +16,5 @@
     "dc-elec-meter": "Site",
     "flow-meter": "Site",
     "meter": "Site"
-  },
-  "bacnetVendorToCarrier": {}
+  }
 }

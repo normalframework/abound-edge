@@ -1,0 +1,8 @@
+{
+  "name": "export-enum-map",
+  "entryPoint": "/export-enum-map.js",
+  "points": {
+    "noPoints": true
+  },
+  "mode": "MODE_ON_REQUEST"
+}

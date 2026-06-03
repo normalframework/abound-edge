@@ -1,5 +1,9 @@
+// Connection test: acquire an OAuth token, then probe GET /v1/dms/data.
+// Token acquisition is the primary signal; the GET probe is best-effort
+// (not every deployment serves the availability GET).
+
 const settingsLib = require("./lib/settings");
-const broker      = require("./lib/broker");
+const dms = require("./lib/dms-client");
 
 module.exports = async ({ sdk }) => {
   const s = settingsLib.load();
@@ -7,17 +11,19 @@ module.exports = async ({ sdk }) => {
     sdk.logEvent("abound: not configured");
     return { ok: false, error: "not configured" };
   }
-  const topic = `CORTIXedgeData/${s.identity.assetGroupId}/i/${s.identity.edgeDeviceId}/openmqtt.probe`;
   try {
-    const c = await broker.connect(s);
-    await broker.publish(c, topic, {
-      probe: true,
-      ts: Date.now(),
-      controller: s.identity.edgeDeviceId,
-    });
-    sdk.logEvent(`abound: probe published → ${topic}`);
+    await dms.getToken(sdk, s, true); // force a fresh token
+    sdk.logEvent("abound: OAuth token acquired");
   } catch (e) {
-    sdk.logEvent(`abound: probe failed: ${e.message}`);
+    sdk.logEvent(`abound: token request failed: ${e.message}`);
     throw e;
+  }
+  try {
+    const r = await dms.ping(sdk, s);
+    sdk.logEvent(`abound: DMS availability probe → ${r.status}`);
+    return { ok: true, token: true, ping: r.status };
+  } catch (e) {
+    sdk.logEvent(`abound: token OK; availability probe failed: ${e.status || e.message}`);
+    return { ok: true, token: true, ping: e.status || "error" };
   }
 };

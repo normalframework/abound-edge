@@ -1,64 +1,33 @@
 {
-  "version": 1,
-  "broker": {
-    "host": "emqx",
-    "port": 1883,
-    "tls": false,
-    "username": "",
-    "password": "",
-    "caPem": null,
-    "insecure": false
+  "version": 2,
+  "dms": {
+    "baseUrl": "https://ws.r2.cortix.ai",
+    "tokenUrl": "https://login.microsoftonline.com/ConnectCortix.onmicrosoft.com/oauth2/v2.0/token",
+    "clientId": "edfbd8c6-945f-4992-b025-700825d3a670",
+    "clientSecret": "snD8Q~gdv75x4p3MhswYtLwSmGmI9HOvEWKHYawL",
+    "scope": "https://ConnectCortix.onmicrosoft.com/80af44a2-7b2d-4585-84ff-5b4b6575f325/.default",
+    "systemId": "33fe868c-fc02-4c02-8e3d-965a76fd56dd",
+    "verifyTls": true
   },
-  "identity": {
-    "assetGroupId": "cortex",
-    "edgeDeviceId": "1234",
-    "accId": "5678",
-    "subId": "1234"
-  },
-  "org": {
-    "id": "",
-    "name": "",
-    "contact": "",
-    "email": "",
-    "info": {}
-  },
-  "mode": "modeled",
   "schedule": {
-    "publishIntervalMin": 15,
-    "metadataIntervalHr": 24,
     "staleThresholdMin": 30
   },
   "sites": {
-    "riverstone": {
+    "cedarpark": {
       "enabled": true,
-      "overrides": {
-        "tempUOM": "F",
-        "timeZone": "America/Los_Angeles",
-        "latitude": 47.6587,
-        "longitude": -117.426,
-        "siteName": "Riverstone Office Building",
-        "address": "Spokane, WA"
-      }
+      "name": "Cedar Park Office Building"
     },
-    "pos.main-term": {
+    "mer.mr-spc-10": {
       "enabled": true,
-      "overrides": {
-        "timeZone": "America/Los_Angeles",
-        "latitude": 47.4502,
-        "longitude": -122.3088,
-        "siteName": "Sea-Tac Main Terminal",
-        "address": "Port of Seattle, Sea-Tac Airport, WA"
-      }
+      "name": "Meridian Special Asset 10"
     },
-    "pos.cup": {
+    "mer.mr-ind-02": {
       "enabled": true,
-      "overrides": {
-        "timeZone": "America/Los_Angeles",
-        "latitude": 47.447,
-        "longitude": -122.3075,
-        "siteName": "Central Utility Plant",
-        "address": "Port of Seattle, Sea-Tac Airport, WA"
-      }
+      "name": "Meridian Industrial Park 2"
+    },
+    "mer.mr-log-03": {
+      "enabled": true,
+      "name": "Meridian Logistics Hub 3"
     }
   }
 }

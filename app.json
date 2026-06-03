@@ -1,5 +1,5 @@
 {
-  "name": "Abound Edge",
-  "description": "Publish NF point data and metadata to a Carrier Abound Edge MQTT broker. Configure via the dashboard.",
-  "options": []
+  "name": "Abound DMS",
+  "description": "Publish NF equipment point data to the Carrier Abound Data Ingestion Service (DMS) REST API. Configure via the dashboard.",
+  "minNfVersion": "3.10.5-4"
 }

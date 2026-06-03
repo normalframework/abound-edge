@@ -1,8 +1,0 @@
-{
-  "name":  "publish-metadata-now",
-  "entryPoint":  "/publish-metadata-now.js",
-  "points":  {
-    "noPoints":  true
-  },
-  "mode":  "MODE_ON_REQUEST"
-}
