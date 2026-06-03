@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dms": {
+    "baseUrl": "https://ingest.ws.insights.cortix.ai",
+    "tokenUrl": "https://login.example.com/oauth2/v2.0/token",
+    "clientId": "",
+    "clientSecret": "",
+    "scope": "",
+    "systemId": "",
+    "verifyTls": true
+  },
+  "schedule": {
+    "staleThresholdMin": 30
+  },
+  "sites": {}
+}
