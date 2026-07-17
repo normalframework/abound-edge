@@ -3,32 +3,10 @@
   "entryPoint": "/publish-data.js",
   "points": {
     "query": {
-      "or": [
-        {
-          "field": {
-            "property": "siteRef",
-            "text": "cedarpark"
-          }
-        },
-        {
-          "field": {
-            "property": "siteRef",
-            "text": "mer.mr-spc-10"
-          }
-        },
-        {
-          "field": {
-            "property": "siteRef",
-            "text": "mer.mr-ind-02"
-          }
-        },
-        {
-          "field": {
-            "property": "siteRef",
-            "text": "mer.mr-log-03"
-          }
-        }
-      ]
+      "field": {
+        "property": "siteRef",
+        "text": "MTN1"
+      }
     },
     "groups": {
       "keys": [
@@ -39,5 +17,11 @@
   "schedule": {
     "rrule": "DTSTART:20260101T000000Z\nRRULE:FREQ=MINUTELY;INTERVAL=15"
   },
-  "mode": "MODE_SCHEDULED"
+  "mode": "MODE_SCHEDULED",
+  "invokeTimeout": "300s",
+  "runtimeConfig": {
+    "memoryLimit": 512,
+    "maxRequestsPerLifetime": 1000,
+    "maxInstances": 1
+  }
 }

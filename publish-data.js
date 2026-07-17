@@ -23,6 +23,13 @@ function isEquipRecord(a) {
 }
 
 function safeName(s) { return String(s).replace(/[^a-z0-9._-]/gi, "_"); }
+  // The key sent to Abound. Prefer the mapped Carrier API point name
+  // (api_point_path attr, set by the rtu mapping workflow); fall back to the
+  // last segment of the point name for any point that has no mapping.
+  function pointKey(p) {
+    const mapped = p.attrs && p.attrs.api_point_path;
+    return mapped || p.name.split("/").pop();
+  } 
 
 // POST one site's data array, halving on 413 until it fits.
 async function postSite(sdk, s, systemId, dataArr) {
@@ -66,7 +73,7 @@ module.exports = async ({ points, sdk }) => {
       return;
     }
     const ref = a.equipRef;
-    if (!ref || !a.class) return; // only publish classified data points
+    if (!ref || !p.name) return; // only publish classified data points
     (dataByEquip[ref] || (dataByEquip[ref] = [])).push(p);
   });
 
@@ -75,7 +82,7 @@ module.exports = async ({ points, sdk }) => {
     siteRef,
     equipRef,
     carrierType: mappingLib.resolveEquipmentType(map, equipClassByRef[equipRef] || ""),
-    points: pts.map((p) => ({ key: p.attrs.class, latestValue: p.latestValue || {} })),
+    points: pts.map((p) => ({ key: pointKey(p), latestValue: p.latestValue || {} })),
   }));
 
   if (!devices.length) {
@@ -99,6 +106,7 @@ module.exports = async ({ points, sdk }) => {
     sdk.logEvent(`abound: posted ${siteRef} — ${r.posted} equipment${r.errors.length ? `, ${r.errors.length} per-equipment errors` : ""}`);
     return { ok: true, site: siteRef, equipment: r.posted, errors: r.errors.length };
   } catch (e) {
+    console.log(e)
     const detail = e.body ? ` ${JSON.stringify(e.body).slice(0, 300)}` : "";
     sdk.logEvent(`abound: ERROR posting ${siteRef}: ${e.status || ""} ${e.message}${detail}`);
     return { ok: false, site: siteRef, error: e.message };
