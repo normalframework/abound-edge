@@ -101,14 +101,16 @@ module.exports = async ({ points, sdk }) => {
     sdk.logEvent(`abound: WARN could not persist preview for ${siteRef}: ${e.message}`);
   }
 
+  // A token-fetch failure or a failed DMS POST throws out of postSite. Log it,
+  // then re-throw so the hook run is recorded as FAILED (state 9) rather than
+  // success — otherwise a silently-swallowed error looks like a healthy run.
   try {
     const r = await postSite(sdk, s, body.systemId, body.data);
     sdk.logEvent(`abound: posted ${siteRef} — ${r.posted} equipment${r.errors.length ? `, ${r.errors.length} per-equipment errors` : ""}`);
     return { ok: true, site: siteRef, equipment: r.posted, errors: r.errors.length };
   } catch (e) {
-    console.log(e)
     const detail = e.body ? ` ${JSON.stringify(e.body).slice(0, 300)}` : "";
     sdk.logEvent(`abound: ERROR posting ${siteRef}: ${e.status || ""} ${e.message}${detail}`);
-    return { ok: false, site: siteRef, error: e.message };
+    throw new Error(`abound: ${siteRef} publish failed: ${e.status || ""} ${e.message}${detail}`.replace(/\s+/g, " ").trim());
   }
 };
