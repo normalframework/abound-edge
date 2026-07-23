@@ -23,6 +23,19 @@ function isEquipRecord(a) {
 }
 
 function safeName(s) { return String(s).replace(/[^a-z0-9._-]/gi, "_"); }
+
+// Distinct, non-empty values of an attribute across a group's points. We only
+// send ONE area_served / equip_serves per equipment in the _path, so a group
+// whose points disagree is a data problem the caller warns about.
+function distinctAttrValues(pts, key) {
+  const seen = new Set();
+  for (const p of pts) {
+    const v = ((p.attrs && p.attrs[key]) || "").trim();
+    if (v) seen.add(v);
+  }
+  return [...seen];
+}
+
   // The key sent to Abound. Prefer the mapped Carrier API point name
   // (api_point_path attr, set by the rtu mapping workflow); fall back to the
   // last segment of the point name for any point that has no mapping.
@@ -78,12 +91,28 @@ module.exports = async ({ points, sdk }) => {
   });
 
   const siteName = (siteCfg && siteCfg.name) || siteRef;
-  const devices = Object.entries(dataByEquip).map(([equipRef, pts]) => ({
-    siteRef,
-    equipRef,
-    carrierType: mappingLib.resolveEquipmentType(map, equipClassByRef[equipRef] || ""),
-    points: pts.map((p) => ({ key: pointKey(p), latestValue: p.latestValue || {} })),
-  }));
+  const devices = Object.entries(dataByEquip).map(([equipRef, pts]) => {
+    // Resolve the single area_served / equip_serves used in the _path hierarchy.
+    // 1 distinct value → use it; 0 → attr absent, path falls back to Site/RTUID;
+    // >1 → the group's points disagree, so warn and fall back to Site/RTUID
+    // rather than pick an arbitrary one.
+    const areaVals  = distinctAttrValues(pts, "area_served");
+    const equipVals = distinctAttrValues(pts, "equip_serves");
+    if (areaVals.length > 1) {
+      sdk.logEvent(`abound: WARN ${siteRef}/${equipRef} has ${areaVals.length} distinct area_served values, using Site/RTUID path: ${areaVals.join(" | ")}`);
+    }
+    if (equipVals.length > 1) {
+      sdk.logEvent(`abound: WARN ${siteRef}/${equipRef} has ${equipVals.length} distinct equip_serves values, using Site/RTUID path: ${equipVals.join(" | ")}`);
+    }
+    return {
+      siteRef,
+      equipRef,
+      carrierType: mappingLib.resolveEquipmentType(map, equipClassByRef[equipRef] || ""),
+      areaServed:  areaVals.length === 1 ? areaVals[0] : "",
+      equipServes: equipVals.length === 1 ? equipVals[0] : "",
+      points: pts.map((p) => ({ key: pointKey(p), latestValue: p.latestValue || {} })),
+    };
+  });
 
   if (!devices.length) {
     sdk.logEvent(`abound: ${siteRef} — no publishable equipment`);
